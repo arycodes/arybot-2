@@ -169,6 +169,21 @@ body::-webkit-scrollbar {
   color: black;
   overflow: auto;
 
+
+
+}
+
+pre{
+  border: 1px solid rgba(128, 128, 128, 0.5);
+
+}
+
+
+code::-webkit-scrollbar {
+  width: 0;
+}
+pre::-webkit-scrollbar {
+  width: 0;
 }
 
 .txt pre {
@@ -197,4 +212,68 @@ body::-webkit-scrollbar {
   border-top: 1px solid #ccc;
   margin-top: 24px;
   margin-bottom: 24px;
+}
+
+
+.dark-mode {
+  background-color: #1f1f1f;
+  color: #fff;
+}
+
+.dark-mode .chat-container {
+  border-bottom: 1px solid #666;
+}
+
+.dark-mode .user-message {
+  background-color: #333;
+}
+
+.dark-mode .bot-message {
+  background-color: #333;
+}
+
+.dark-mode .msgfrm {
+  background-color: #222;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .msgfrm input[type="text"] {
+  border: 1px solid #666;
+  background-color: #444;
+  color: #fff;
+}
+
+.dark-mode .txt h1,
+.dark-mode .txt h2,
+.dark-mode .txt h3 {
+  color: #fff;
+}
+
+.dark-mode .txt p,
+.dark-mode .txt ul,
+.dark-mode .txt ol,
+.dark-mode .txt li,
+.dark-mode .txt a,
+.dark-mode .txt blockquote,
+.dark-mode .txt img,
+.dark-mode .txt hr {
+  color: #ccc;
+}
+
+.dark-mode .txt a {
+  color: #4ec3ff;
+}
+
+.dark-mode .txt code,
+.dark-mode .txt pre {
+  background-color: #333;
+  color: #fff;
+}
+
+.dark-mode .txt blockquote {
+  border-left: 4px solid #4ec3ff;
+}
+
+.dark-mode .txt hr {
+  border-top: 1px solid #666;
 }

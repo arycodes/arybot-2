@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./header.css"
+import InstallButton from './installbtn';
 function Header() {
   const [lastScrollTop, setLastScrollTop] = useState(0);
 
@@ -27,6 +28,7 @@ function Header() {
   return (
       <header id="header">
         <h1>AryBot</h1>
+        <InstallButton/>
       </header>
 
   );

@@ -1,0 +1,198 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* body {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+} */
+
+
+body::-webkit-scrollbar {
+  width: 0;
+}
+
+.containermain {
+  display: flex;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 100px;
+  border-bottom: 1px solid #333;
+}
+
+.message-container {
+  width: 100%;
+}
+
+.chatgroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.user-message,
+.bot-message {
+  margin: 5px;
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: fit-content;
+  font-size: 14px;
+  line-height: 20px;
+
+}
+
+.user-message {
+  background-color: #fff;
+}
+
+.bot-message {
+  background-color: #f3f3f3;
+  color: #333;
+  padding: 10px 20px;
+}
+
+.msgfrm {
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  position: fixed;
+  bottom: 0;
+  padding: 10px 20px;
+  gap: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(51, 51, 51, 0.2);
+  max-width: 1200px;
+  border-radius: 10px;
+}
+
+.msgfrm input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+
+  max-height: fit-content;
+}
+
+
+
+
+.msgfrm button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.msgfrm button:hover {
+  background-color: #0056b3;
+}
+
+.txt {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  font-size: 14px;
+  color: #333;
+}
+
+.txt h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.txt h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 12px;
+}
+
+.txt h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 16px;
+  margin-bottom: 10px;
+}
+
+.txt p {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.txt ul,
+.txt ol {
+  margin-top: 0;
+  margin-bottom: 16px;
+  padding-left: 20px;
+}
+
+.txt li {
+  margin-bottom: 4px;
+}
+
+.txt a {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.txt code,
+.txt pre {
+  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  font-size: 12px;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 4px 8px;
+  display: flex;
+
+  overflow-x: auto;
+  color: black;
+  overflow: auto;
+
+}
+
+.txt pre {
+  white-space: pre-wrap;
+  text-wrap: nowrap;
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.txt blockquote {
+  margin: 0;
+  margin-left: 20px;
+  padding: 0 16px;
+  border-left: 4px solid #007bff;
+}
+
+.txt img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.txt hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}

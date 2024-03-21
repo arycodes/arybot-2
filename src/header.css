@@ -1,0 +1,18 @@
+#header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    color: #fff;
+    transition: top 0.3s ease-in-out;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 99;
+    color: black;
+    font-size: 16px;
+}

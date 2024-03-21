@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import "./chatstyle.css"
+import Spinner from "./spinner.svg"
+import SendIcon from "./send.svg"
 import {
     GoogleGenerativeAI,
     HarmCategory,
@@ -15,6 +17,8 @@ const API_KEY = "AIzaSyBS96idceF6SbZeLX1rbVvaDsv43bVTDvY";
 const ChatComponent = () => {
     const [userInput, setUserInput] = useState('');
     const [chatHistory, setChatHistory] = useState([]);
+    const [loading, setLoading] = useState(false);
+
 
     const handleUserInput = (event) => {
         setUserInput(event.target.value);
@@ -22,6 +26,8 @@ const ChatComponent = () => {
 
     const handleSendMessage = async () => {
         if (userInput.trim() === '') return;
+        setLoading(true);
+
 
         const genAI = new GoogleGenerativeAI(API_KEY);
         const model = genAI.getGenerativeModel({ model: MODEL_NAME });
@@ -67,6 +73,8 @@ const ChatComponent = () => {
         setChatHistory(updatedChatHistory);
 
         setUserInput('');
+        setLoading(false); 
+
     };
 
     return (
@@ -87,7 +95,7 @@ const ChatComponent = () => {
             </div>
             <div className='msgfrm'>
                 <input type="text" value={userInput} contentEditable="true" onChange={handleUserInput} />
-                <button onClick={handleSendMessage} >Send</button>
+                <button onClick={handleSendMessage} disabled={loading} >{loading ? <img src={Spinner} alt="" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', height: '30px' }} /> : <img src={SendIcon} alt="" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', height: '30px' }} />}</button>
             </div>
         </div>
     );

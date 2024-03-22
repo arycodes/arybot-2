@@ -1,3 +1,8 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Disallow: /admin/  # Disallow access to admin pages
+Disallow: /private/  # Disallow access to private pages
+Disallow: /temp/  # Disallow access to temporary pages
+Disallow: /cgi-bin/  # Disallow access to CGI scripts
+
+Allow: /  # Allow access to all other pages

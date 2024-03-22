@@ -3,10 +3,13 @@ import ChatComponent from './gemini';
 
 import Header from './header';
 
+import ThemeButton from "./switchtheme"
+
 
 
 const App = () => {
   return (<>
+    <ThemeButton />
     <Header />
     <div className="containermain">
       <ChatComponent />

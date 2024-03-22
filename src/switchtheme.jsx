@@ -15,7 +15,6 @@ function ThemeButton() {
 
     if (themeColorMetaTag) {
       themeColorMetaTag.setAttribute('content', currentThemeColor);
-      console.log("updated");
     }
 
     const moonIcon = document.querySelector('.fa-moon');

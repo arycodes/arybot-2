@@ -43,6 +43,8 @@ body::-webkit-scrollbar {
   align-items: flex-start;
 }
 
+
+
 .user-message,
 .bot-message {
   margin: 5px;
@@ -55,15 +57,54 @@ body::-webkit-scrollbar {
 
 }
 
+
+
 .user-message {
   background-color: #fff;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
+
+
+
 
 .bot-message {
   background-color: #f3f3f3;
   color: #333;
   padding: 10px 20px;
 }
+
+
+.bot-message {
+  position: relative;
+}
+
+.bot-message .speechbutton {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  padding: 4px;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 16px;
+
+  border: none;
+  background-color: transparent;
+
+}
+
+
+.dark-mode .bot-message .speechbutton {
+  border: 2px solid #777;
+  background-color: #777;
+}
+
+
 
 .msgfrm {
   display: flex;
@@ -173,7 +214,7 @@ body::-webkit-scrollbar {
 
 }
 
-pre{
+pre {
   border: 1px solid rgba(128, 128, 128, 0.5);
 
 }
@@ -182,6 +223,7 @@ pre{
 code::-webkit-scrollbar {
   width: 0;
 }
+
 pre::-webkit-scrollbar {
   width: 0;
 }

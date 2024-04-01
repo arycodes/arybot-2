@@ -73,9 +73,52 @@ const ChatComponent = () => {
         setChatHistory(updatedChatHistory);
 
         setUserInput('');
-        setLoading(false); 
+        setLoading(false);
 
     };
+
+
+
+    function speakText(text, elem) {
+        const button = elem
+
+
+        const speechButtons = document.querySelectorAll('.speechbutton');
+        speechButtons.forEach(sb => {
+
+            sb.innerHTML = `<i class="fas fa-volume-off"></i>       `
+
+        });
+
+
+        if (!button) {
+            console.error("Button element is not available.");
+            return;
+        }
+
+        const synthesis = new SpeechSynthesisUtterance(text);
+        const speech = window.speechSynthesis;
+
+        if (speech.speaking) {
+            speech.cancel();
+            button.innerHTML = `<i class="fas fa-volume-off"></i>       `
+        } else {
+            speech.speak(synthesis);
+            button.innerHTML = `<i class="fas fa-volume-up"></i>        `
+            synthesis.onend = function () {
+                button.innerHTML = `<i class="fas fa-volume-off"></i>       `
+            };
+        }
+    }
+
+
+    function decodeHtmlEntities(text) {
+        return text.replace(/&#(\d+);/g, function (match, dec) {
+            return String.fromCharCode(dec);
+        });
+    }
+
+
 
     return (
         <div className="chat-container">
@@ -86,7 +129,11 @@ const ChatComponent = () => {
                             <p><strong>You: <br /></strong> {item.user}</p>
                         </div>
                         <div className="bot-message txt">
-                            <p><strong>Ary:</strong> <br /><span dangerouslySetInnerHTML={{ __html: item.bot }} className='txt' /></p>
+                            <p>
+                                <strong>Ary:</strong>
+                                <button className='speechbutton' onClick={(e) => speakText(decodeHtmlEntities(item.bot), e.currentTarget)}><i className="fas fa-volume-off"></i></button>
+                                <br />
+                                <span dangerouslySetInnerHTML={{ __html: item.bot }} className='txt' /></p>
                         </div>
 
 

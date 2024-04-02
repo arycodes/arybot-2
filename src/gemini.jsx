@@ -112,10 +112,28 @@ const ChatComponent = () => {
     }
 
 
-    function decodeHtmlEntities(text) {
-        return text.replace(/&#(\d+);/g, function (match, dec) {
-            return String.fromCharCode(dec);
-        });
+    function decodeHtmlEntities(html) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+
+        let textContent = '';
+
+        function traverse(node) {
+            if (node.nodeType === Node.TEXT_NODE) {
+                textContent += node.textContent;
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                if (node.nodeName === 'BR') {
+                    textContent += '\n';
+                }
+                for (let childNode of node.childNodes) {
+                    traverse(childNode);
+                }
+            }
+        }
+
+        traverse(doc.body);
+
+        return textContent.trim();
     }
 
 

@@ -102,6 +102,7 @@ body::-webkit-scrollbar {
 .dark-mode .bot-message .speechbutton {
   border: 2px solid #777;
   background-color: #777;
+  cursor: pointer;
 }
 
 

@@ -63,14 +63,26 @@ const ChatComponent = () => {
             safetySettings,
             history: [],
         });
+        
+        try {
+            const result = await chat.sendMessage(userInput);
+            const responsem = result.response.text();
+            let response = convertMarkdownToHTML(responsem);
+            if (response.length < 1) {
+                response = `<p style="color: lightcoral; font-size: 16px;">Error: Text generation failed. Please retry or contact support.</p>`
+            }
+            const updatedChatHistory = [...chatHistory, { id: Date.now(), user: userInput, bot: response }];
+            setChatHistory(updatedChatHistory);
 
-        const result = await chat.sendMessage(userInput);
-        const responsem = result.response.text();
+        } catch (error) {
+            console.error("Error generating response:", error);
+            const response = `<p style="color: lightcoral; font-size: 16px;">Error: Text generation failed. Please retry or contact support.</p>`;
 
-        const response = convertMarkdownToHTML(responsem)
+            const updatedChatHistory = [...chatHistory, { id: Date.now(), user: userInput, bot: response }];
+            setChatHistory(updatedChatHistory);
+        }
 
-        const updatedChatHistory = [...chatHistory, { id: Date.now(), user: userInput, bot: response }];
-        setChatHistory(updatedChatHistory);
+
 
         setUserInput('');
         setLoading(false);

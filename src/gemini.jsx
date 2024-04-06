@@ -10,6 +10,8 @@ import {
 
 import convertMarkdownToHTML from './convertmarkedtohtml';
 
+import CopyToClipboardButton from './copytoclipboard';
+
 
 const MODEL_NAME = "gemini-1.0-pro";
 const API_KEY = "AIzaSyBS96idceF6SbZeLX1rbVvaDsv43bVTDvY";
@@ -164,6 +166,8 @@ const ChatComponent = () => {
                                 <button className='speechbutton' onClick={(e) => speakText(decodeHtmlEntities(item.bot), e.currentTarget)}><i className="fas fa-volume-off"></i></button>
                                 <br />
                                 <span dangerouslySetInnerHTML={{ __html: item.bot }} className='txt' /></p>
+
+                                <CopyToClipboardButton text={decodeHtmlEntities(item.bot)} />
                         </div>
 
 

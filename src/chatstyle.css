@@ -83,7 +83,7 @@ body::-webkit-scrollbar {
 .bot-message .speechbutton {
   position: absolute;
   top: 8px;
-  right: 10px;
+  right: 8px;
   padding: 4px;
   border-radius: 50%;
   aspect-ratio: 1/1;
@@ -320,3 +320,25 @@ pre::-webkit-scrollbar {
 .dark-mode .txt hr {
   border-top: 1px solid #666;
 }
+
+
+/* chatstyle.css */
+
+.CopyButton {
+  padding: 4px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  position: absolute;
+  bottom: 10px;
+  right: 8px;
+  background-color: transparent;
+  color: black;
+  cursor: pointer;
+}
+
+ .dark-mode .CopyButton{
+  color: #d1cfcf;
+
+ }
+

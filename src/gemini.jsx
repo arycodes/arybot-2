@@ -175,7 +175,7 @@ const ChatComponent = () => {
                 ))}
             </div>
             <div className='msgfrm'>
-                <input type="text" value={userInput} contentEditable="true" onChange={handleUserInput} />
+                <input type="text" value={userInput} contentEditable="true" onChange={handleUserInput} autoFocus />
                 <button onClick={handleSendMessage} disabled={loading} >{loading ? <img src={Spinner} alt="" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', height: '30px' }} /> : <img src={SendIcon} alt="" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', height: '30px' }} />}</button>
             </div>
         </div>

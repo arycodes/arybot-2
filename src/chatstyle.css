@@ -54,6 +54,7 @@ body::-webkit-scrollbar {
   max-width: fit-content;
   font-size: 14px;
   line-height: 20px;
+  min-width: 100px;
 
 }
 

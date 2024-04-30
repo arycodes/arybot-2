@@ -303,8 +303,9 @@ pre::-webkit-scrollbar {
 .dark-mode .txt a,
 .dark-mode .txt blockquote,
 .dark-mode .txt img,
+.dark-mode .txt table *,
 .dark-mode .txt hr {
-  color: #ccc;
+  color: #eee;
 }
 
 .dark-mode .txt a {
@@ -341,8 +342,7 @@ pre::-webkit-scrollbar {
   cursor: pointer;
 }
 
- .dark-mode .CopyButton{
+.dark-mode .CopyButton {
   color: #d1cfcf;
 
- }
-
+}

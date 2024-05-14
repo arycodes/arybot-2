@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState  , useRef} from 'react';
 import "./chatstyle.css"
 import Spinner from "./spinner.svg"
 import SendIcon from "./send.svg"
@@ -20,10 +20,23 @@ const ChatComponent = () => {
     const [userInput, setUserInput] = useState('');
     const [chatHistory, setChatHistory] = useState([]);
     const [loading, setLoading] = useState(false);
+    const textareaRef = useRef(null);
 
 
     const handleUserInput = (event) => {
         setUserInput(event.target.value);
+        autoResizeTextarea();
+
+    };
+
+
+
+    const autoResizeTextarea = () => {
+        const textarea = textareaRef.current;
+        if (textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 200) + 'px';
+        }
     };
 
     const handleSendMessage = async () => {
@@ -88,6 +101,10 @@ const ChatComponent = () => {
 
         setUserInput('');
         setLoading(false);
+        const textarea = textareaRef.current;
+        if (textarea) {
+            textarea.style.height = 'auto'; 
+        }
 
     };
 
@@ -175,7 +192,7 @@ const ChatComponent = () => {
                 ))}
             </div>
             <div className='msgfrm'>
-                <input type="text" value={userInput} contentEditable="true" onChange={handleUserInput} autoFocus placeholder='write your message' />
+                <textarea ref={textareaRef} type="text" value={userInput} contentEditable="true" onChange={handleUserInput} autoFocus placeholder='write your message' id='queryinput' />
                 <button onClick={handleSendMessage} disabled={loading} >{loading ? <img src={Spinner} alt="" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', height: '30px' }} /> : <img src={SendIcon} alt="" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', height: '30px' }} />}</button>
             </div>
         </div>

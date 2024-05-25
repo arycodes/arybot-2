@@ -1,0 +1,156 @@
+.navbar {
+  height: 100%;
+  width: 75%;
+  max-width: 280px;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  background-color: #fff;
+  overflow-x: hidden;
+  transition: 0.4s;
+  padding-top: 80px;
+  z-index: 97;
+  border-right: 1px solid #ccc;
+}
+
+
+.nav-logocontainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0 15px;
+
+}
+
+.nav-logocontainer .nav-logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+
+}
+
+.nav-logocontainer .nav-copy {
+  font-size: 12px;
+  padding: 4px;
+}
+
+.nav-logocontainer .nav-logo img {
+  border-radius: 50%;
+}
+
+img {
+  width: 35px;
+  height: 35px;
+}
+
+
+.sourcescontainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 10px;
+  padding: 15px 15px;
+  gap: 10px;
+  height: 80%;
+  overflow: auto;
+
+}
+
+.sourcebuttons {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 15px;
+  background-color: #f9f9f9;
+  text-decoration: none;
+  color: #333;
+
+}
+
+.sourcebuttons i {
+  margin: auto 4px;
+}
+
+
+
+#terms {
+  color: rgba(100, 100, 256, 1);
+  text-align: center;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.dark-mode #terms {
+  color: rgba(100, 100, 250, 0.8);
+
+}
+
+
+.navbar.open {
+  left: 0;
+}
+
+.dark-mode .navbar {
+  background-color: #1f1f1f;
+  border-right: 1px solid #333;
+
+}
+
+
+.nav-footer span {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: #777;
+  height: 40px;
+  padding: 9px 8px;
+  font-weight: 500;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.nav-footer span svg {
+  height: 100%;
+  stroke: #777;
+  margin-left: 5px;
+}
+
+.nav-footer span a {
+  padding: 0;
+  margin: 0;
+  display: block;
+  margin: 0 4px;
+  margin-top: 3px;
+  color: rgba(100, 100, 256, 1);
+  font-weight: normal;
+
+}
+
+
+.nav-footer span svg path {
+  fill: #333;
+}
+
+.dark-mode .nav-footer span {
+  color: #ccc;
+}
+
+.dark-mode .nav-footer span svg {
+  stroke: #ccc;
+}
+
+.dark-mode .nav-footer span svg path {
+  fill: #ccc;
+}
+
+.dark-mode .sourcebuttons {
+  background-color: #3333334d;
+  color: #f4f4f4;
+}

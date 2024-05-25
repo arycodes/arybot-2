@@ -10,7 +10,7 @@ function ThemeButton() {
   };
 
   useEffect(() => {
-    const currentThemeColor = darkMode ? '#333' : '#fff';
+    const currentThemeColor = darkMode ? '#1f1f1f' : '#fff';
     const themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
 
     if (themeColorMetaTag) {

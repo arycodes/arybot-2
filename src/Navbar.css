@@ -128,7 +128,8 @@ img {
   display: block;
   margin: 0 4px;
   margin-top: 3px;
-  color: rgba(100, 100, 256, 1);
+  /* color: rgba(100, 100, 256, 1); */
+  color: #007bff;
   font-weight: normal;
 
 }
@@ -140,6 +141,10 @@ img {
 
 .dark-mode .nav-footer span {
   color: #ccc;
+}
+.dark-mode .nav-footer span a {
+  color: #2365ac;
+  font-weight: bold;
 }
 
 .dark-mode .nav-footer span svg {

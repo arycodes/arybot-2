@@ -37,7 +37,7 @@ body::-webkit-scrollbar {
   align-items: center;
   width: 100%;
   margin-bottom: 100px;
-  border-bottom: 1px solid #ccc;
+  /* border-bottom: 1px solid #ccc; */
 }
 
 .message-container {
@@ -284,9 +284,9 @@ pre::-webkit-scrollbar {
   color: #f4f4f4;
 }
 
-.dark-mode .chat-container {
+/* .dark-mode .chat-container {
   border-bottom: 1px solid #333;
-}
+} */
 
 .dark-mode .user-message {
   background-color: transparent;

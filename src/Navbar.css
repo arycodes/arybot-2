@@ -10,7 +10,7 @@
   transition: 0.4s;
   padding-top: 80px;
   z-index: 97;
-  border-right: 1px solid #ccc;
+  /* border-right: 1px solid #ccc; */
 }
 
 
@@ -98,7 +98,7 @@ img {
 
 .dark-mode .navbar {
   background-color: #1f1f1f;
-  border-right: 1px solid #333;
+  /* border-right: 1px solid #333; */
 
 }
 

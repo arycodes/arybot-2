@@ -90,8 +90,8 @@ body::-webkit-scrollbar {
 
 .bot-message .speechbutton {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  bottom: 8px;
+  right: 10px;
   padding: 4px;
   border-radius: 50%;
   aspect-ratio: 1/1;
@@ -380,8 +380,8 @@ td {
   border: none;
   outline: none;
   position: absolute;
-  bottom: 10px;
-  right: 8px;
+  bottom: 8px;
+  right: 45px;
   background-color: transparent;
   color: black;
   cursor: pointer;

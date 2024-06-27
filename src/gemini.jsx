@@ -24,8 +24,13 @@ const ChatComponent = () => {
 
 
     const handleUserInput = (event) => {
-        setUserInput(event.target.value);
-        autoResizeTextarea();
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            handleSendMessage();
+        } else {
+            setUserInput(event.target.value);
+            autoResizeTextarea();
+        }
 
     };
 
@@ -117,7 +122,7 @@ const ChatComponent = () => {
         const speechButtons = document.querySelectorAll('.speechbutton');
         speechButtons.forEach(sb => {
 
-            sb.innerHTML = `<i class="fas fa-volume-off"></i>       `
+            sb.innerHTML = `<i class="fas fa-volume-down"></i>       `
 
         });
 
@@ -132,12 +137,12 @@ const ChatComponent = () => {
 
         if (speech.speaking) {
             speech.cancel();
-            button.innerHTML = `<i class="fas fa-volume-off"></i>       `
+            button.innerHTML = `<i class="fas fa-volume-down"></i>       `
         } else {
             speech.speak(synthesis);
             button.innerHTML = `<i class="fas fa-volume-up"></i>        `
             synthesis.onend = function () {
-                button.innerHTML = `<i class="fas fa-volume-off"></i>       `
+                button.innerHTML = `<i class="fas fa-volume-down"></i>       `
             };
         }
     }
@@ -180,7 +185,7 @@ const ChatComponent = () => {
                         <div className="bot-message txt">
                             <p>
                                 <strong>Ary:</strong>
-                                <button className='speechbutton' onClick={(e) => speakText(decodeHtmlEntities(item.bot), e.currentTarget)}><i className="fas fa-volume-off"></i></button>
+                                <button className='speechbutton' onClick={(e) => speakText(decodeHtmlEntities(item.bot), e.currentTarget)}><i className="fas fa-volume-down"></i></button>
                                 <br />
                                 <span dangerouslySetInnerHTML={{ __html: item.bot }} className='txt' /></p>
 
@@ -192,7 +197,7 @@ const ChatComponent = () => {
                 ))}
             </div>
             <div className='msgfrm'>
-                <textarea ref={textareaRef} type="text" value={userInput} onChange={handleUserInput} autoFocus placeholder='Message AryBot' id='queryinput' />
+                <textarea ref={textareaRef} type="text" value={userInput} onChange={handleUserInput} onKeyDown={handleUserInput} autoFocus placeholder='Message AryBot' id='queryinput' />
                 <button onClick={handleSendMessage} disabled={loading} >{loading ? <img src={Spinner} alt="" /> : <img src={SendIcon} alt="" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', height: '30px' }} />}</button>
             </div>
         </div>

@@ -147,7 +147,7 @@ body::-webkit-scrollbar {
 .msgfrm button {
   position: absolute;
   right: 4px;
-  bottom: 4px;
+  bottom: 4.5px;
   padding: 24px;
   border: none;
   border-radius: 24px;

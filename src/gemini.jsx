@@ -1,4 +1,4 @@
-import React, { useState  , useRef} from 'react';
+import React, { useState, useRef } from 'react';
 import "./chatstyle.css"
 import Spinner from "./spinner.svg"
 import SendIcon from "./send.svg"
@@ -78,7 +78,7 @@ const ChatComponent = () => {
             safetySettings,
             history: [],
         });
-        
+
         try {
             const result = await chat.sendMessage(userInput);
             const responsem = result.response.text();
@@ -103,7 +103,7 @@ const ChatComponent = () => {
         setLoading(false);
         const textarea = textareaRef.current;
         if (textarea) {
-            textarea.style.height = 'auto'; 
+            textarea.style.height = 'auto';
         }
 
     };
@@ -184,7 +184,7 @@ const ChatComponent = () => {
                                 <br />
                                 <span dangerouslySetInnerHTML={{ __html: item.bot }} className='txt' /></p>
 
-                                <CopyToClipboardButton text={decodeHtmlEntities(item.bot)} />
+                            <CopyToClipboardButton text={decodeHtmlEntities(item.bot)} />
                         </div>
 
 
@@ -192,8 +192,8 @@ const ChatComponent = () => {
                 ))}
             </div>
             <div className='msgfrm'>
-                <textarea ref={textareaRef} type="text" value={userInput}  onChange={handleUserInput} autoFocus placeholder='write your message' id='queryinput' />
-                <button onClick={handleSendMessage} disabled={loading} >{loading ? <img src={Spinner} alt="" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', height: '30px' }} /> : <img src={SendIcon} alt="" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', height: '30px' }} />}</button>
+                <textarea ref={textareaRef} type="text" value={userInput} onChange={handleUserInput} autoFocus placeholder='Message AryBot' id='queryinput' />
+                <button onClick={handleSendMessage} disabled={loading} >{loading ? <img src={Spinner} alt="" /> : <img src={SendIcon} alt="" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', height: '30px' }} />}</button>
             </div>
         </div>
     );

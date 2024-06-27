@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" >
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
   <link rel="icon" type="image/png" href="%PUBLIC_URL%/logo.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -26,56 +26,6 @@
 
 <body>
   <div id="root"></div>
-  <!-- <button onclick="toggleDarkMode()"
-    style="position: fixed;top: 10px; cursor: pointer; right: 10px; z-index: 99;padding: 4px; background-color: transparent;border: none;font-size: 20px;"
-    class="thembutton">
-    <i class="fas fa-sun" style="color: #fff;"></i>
-    <i class="fas fa-moon"></i>
-  </button> -->
-
-
-  <!-- <script>
-    function updateThemeColor() {
-      const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      const currentThemeColor = darkModeMediaQuery.matches ? '#333' : '#fff';
-
-      const themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
-      if (themeColorMetaTag) {
-        themeColorMetaTag.setAttribute('content', '#000');
-        themeColorMetaTag.setAttribute('content', currentThemeColor);
-        console.log("updated")
-      }
-    }
-
-    function toggleDarkMode() {
-      const moonIcon = document.querySelector('.fa-moon');
-      const sunIcon = document.querySelector('.fa-sun');
-
-      document.body.classList.toggle('dark-mode');
-      updateThemeColor()
-      if (document.body.classList.contains('dark-mode')) {
-        moonIcon.style.display = 'none';
-        sunIcon.style.display = 'inline-block';
-      } else {
-        moonIcon.style.display = 'inline-block';
-        sunIcon.style.display = 'none';
-      }
-    }
-
-    const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
-    if (prefersDarkScheme.matches) {
-      document.body.classList.add('dark-mode');
-      updateThemeColor()
-
-      document.querySelector('.fa-sun').style.display = 'inline-block';
-      document.querySelector('.fa-moon').style.display = 'none';
-    } else {
-
-
-      document.querySelector('.fa-sun').style.display = 'none';
-      document.querySelector('.fa-moon').style.display = 'inline-block';
-    }
-  </script> -->
 </body>
 
 </html>

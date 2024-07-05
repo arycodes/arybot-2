@@ -131,7 +131,8 @@ body::-webkit-scrollbar {
 
 .msgfrm #queryinput {
   flex: 1;
-  padding: 8px 15px;
+  padding: 0px 15px;
+  padding-top: 15px;
   padding-right: 50px;
   border: 1px solid #ccc;
   border-radius: 25px;

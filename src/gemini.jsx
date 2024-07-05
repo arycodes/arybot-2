@@ -13,7 +13,7 @@ import convertMarkdownToHTML from './convertmarkedtohtml';
 import CopyToClipboardButton from './copytoclipboard';
 
 
-const MODEL_NAME = "gemini-1.0-pro";
+const MODEL_NAME = "gemini-1.5-flash";
 const API_KEY = "AIzaSyBS96idceF6SbZeLX1rbVvaDsv43bVTDvY";
 
 const ChatComponent = () => {

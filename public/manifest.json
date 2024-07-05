@@ -8,6 +8,16 @@
       "sizes": "192x192"
     }
   ],
+  "screenshots": [
+    {
+      "src": "/screenshots/1.png",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/screenshots/2.png",
+      "sizes": "1024x768"
+    }
+  ],
   "start_url": ".",
   "display": "standalone",
   "background_color": "#ffffff"

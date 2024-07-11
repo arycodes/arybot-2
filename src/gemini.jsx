@@ -92,7 +92,7 @@ const ChatComponent = () => {
             const responsem = result.response.text();
             let response = convertMarkdownToHTML(responsem);
             if (response.length < 1) {
-                response = `<p style="color: lightcoral; font-size: 16px;">Error: Text generation failed. Please retry or contact support.</p>`
+                response = `<p style="color: lightcoral; font-size: 16px;">Error: Text generation failed. Please retry/refresh or contact support.</p>`
             }
             const updatedChatHistory = [...chatHistory, { id: Date.now(), user: userInput, bot: response }];
             setChatHistory(updatedChatHistory);

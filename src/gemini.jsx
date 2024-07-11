@@ -98,7 +98,7 @@ const ChatComponent = () => {
             setChatHistory(updatedChatHistory);
         } catch (error) {
             console.error("Error generating response:", error);
-            const response = `<p style="color: lightcoral; font-size: 16px;">Error: Text generation failed. Please retry or contact support.</p>`;
+            const response = `<p style="color: lightcoral; font-size: 16px;">Error: Text generation failed. Please retry/refresh or contact support.</p>`;
             const updatedChatHistory = [...chatHistory, { id: Date.now(), user: userInput, bot: response }];
             setChatHistory(updatedChatHistory);
         }

@@ -13,7 +13,7 @@ import convertMarkdownToHTML from './convertmarkedtohtml';
 import CopyToClipboardButton from './copytoclipboard';
 
 const MODEL_NAME = "gemini-1.5-flash";
-const API_KEY = "AIzaSyAKrpsxxA_oJhL_rrvJIVUrI_NSD36_FbE";
+const API_KEY = "AIzaSyAjlVpByX9aFcBABmU7y-W6nhGh6xktgIg";
 
 const ChatComponent = () => {
     const [userInput, setUserInput] = useState('');

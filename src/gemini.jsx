@@ -14,7 +14,7 @@ import CopyToClipboardButton from './copytoclipboard';
 
 
 const MODEL_NAME = "gemini-1.5-flash";
-const API_KEY = "AIzaSyAjlVpByX9aFcBABmU7y-W6nhGh6xktgIg";
+const API_KEY = "AIzaSyCw8VowtrR9hl0EB3VHVpo0c9PaXhzIxUQ";
 
 const ChatComponent = () => {
     const [userInput, setUserInput] = useState('');

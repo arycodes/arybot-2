@@ -105,6 +105,9 @@ const ChatComponent = () => {
     const handleSendMessage = async () => {
         if (userInput.trim() === '' && !selectedImage) return;
         setLoading(true);
+        setUserInput('');
+        setSelectedImage(null); // Clear selected image
+
 
         const messageId = Date.now();
         const userMessage = userInput.trim();
@@ -155,7 +158,6 @@ const ChatComponent = () => {
             console.error("Error generating response:", error);
         }
 
-        setUserInput('');
         setSelectedImage(null); // Clear selected image
         setLoading(false);
     };
@@ -236,6 +238,15 @@ const ChatComponent = () => {
             </div>
 
             <div className='msgfrm'>
+
+                {selectedImage && (
+                    <div className="image-preview">
+                        <img src={selectedImage} alt="Selected" className="preview-image" />
+                        <button className="remove-image-btn" onClick={() => setSelectedImage(null)}>✖</button>
+                    </div>
+                )}
+
+
                 <input
                     type="file"
                     accept="image/*"

@@ -6,7 +6,7 @@ const ShareButton = ({ text }) => {
     const shareContent = () => {
         if (navigator.share) {
             navigator.share({
-                title: "Check this out!",
+                title: "AryBots's Response",
                 text: text,
             }).catch((error) => console.error("Error sharing:", error));
         } else {

@@ -37,6 +37,7 @@ body::-webkit-scrollbar {
   align-items: center;
   width: 100%;
   margin-bottom: 100px;
+  padding: 12px;
   /* border-bottom: 1px solid #ccc; */
 }
 
@@ -55,9 +56,9 @@ body::-webkit-scrollbar {
 .user-message,
 .bot-message {
   margin: 5px;
-  padding: 10px;
-  border-radius: 8px;
-  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  width: 95%;
   max-width: fit-content;
   font-size: 16px;
   line-height: 20px;
@@ -68,19 +69,21 @@ body::-webkit-scrollbar {
 
 
 .user-message {
-  background-color: #fff;
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: normal;
+  align-self: flex-end;
+  background-color: #f9f9f9;
+  margin: 10px 0;
 }
 
 
 
 
 .bot-message {
-  background-color: #f9f9f9;
+  background-color: #fff;
   color: #333;
-  padding: 10px 20px 30px 20px;
+  padding: 0 0 30px 0;
 }
 
 
@@ -91,7 +94,7 @@ body::-webkit-scrollbar {
 .bot-message .speechbutton {
   position: absolute;
   bottom: 8px;
-  right: 14px;
+  right: 15px;
   padding: 4px;
   border-radius: 50%;
   aspect-ratio: 1/1;
@@ -290,11 +293,13 @@ pre::-webkit-scrollbar {
 } */
 
 .dark-mode .user-message {
-  background-color: transparent;
+  background-color: #3333334d;
+
 }
 
 .dark-mode .bot-message {
-  background-color: #3333334d;
+  background-color: transparent;
+
 }
 
 .dark-mode .msgfrm {
@@ -375,7 +380,8 @@ td {
 
 /* chatstyle.css */
 
-.CopyButton {
+.CopyButton,
+.share-button {
   padding: 4px;
   border-radius: 4px;
   border: none;
@@ -388,7 +394,12 @@ td {
   cursor: pointer;
 }
 
-.dark-mode .CopyButton {
+.share-button {
+  right: 75px;
+}
+
+.dark-mode .CopyButton,
+.dark-mode .share-button {
   color: #d1cfcf;
 
 }

@@ -1,64 +1,55 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 function ThemeButton() {
-  const [darkMode, setDarkMode] = useState(
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-  );
+  // Retrieve stored theme preference from localStorage or fallback to system preference
+  const getStoredTheme = () => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme !== null) {
+      return savedTheme === "dark"; // Convert string to boolean
+    }
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  };
+
+  const [darkMode, setDarkMode] = useState(getStoredTheme());
 
   const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
+    const newTheme = !darkMode;
+    setDarkMode(newTheme);
+    localStorage.setItem("theme", newTheme ? "dark" : "light"); // Save theme
   };
 
   useEffect(() => {
-    const currentThemeColor = darkMode ? '#1f1f1f' : '#fff';
+    const currentThemeColor = darkMode ? "#1f1f1f" : "#fff";
     const themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
 
     if (themeColorMetaTag) {
-      themeColorMetaTag.setAttribute('content', currentThemeColor);
+      themeColorMetaTag.setAttribute("content", currentThemeColor);
     }
 
-    const moonIcon = document.querySelector('.fa-moon');
-    const sunIcon = document.querySelector('.fa-sun');
-
-    if (moonIcon && sunIcon) {
-      if (darkMode) {
-        moonIcon.style.display = 'none';
-        sunIcon.style.display = 'inline-block';
-      } else {
-        moonIcon.style.display = 'inline-block';
-        sunIcon.style.display = 'none';
-      }
-    }
-
-    document.body.classList.toggle('dark-mode', darkMode);
-
+    document.body.classList.toggle("dark-mode", darkMode);
   }, [darkMode]);
 
-  useEffect(() => {
-    const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
-    setDarkMode(prefersDarkScheme.matches);
-
-  }, []);
-
   return (
-
     <button
       onClick={toggleDarkMode}
       style={{
-        position: 'fixed',
-        top: '10px',
-        cursor: 'pointer',
-        right: '10px',
-        zIndex: '100',
-        padding: '4px',
-        backgroundColor: 'transparent',
-        border: 'none',
-        fontSize: '20px'
+        position: "fixed",
+        top: "10px",
+        right: "10px",
+        cursor: "pointer",
+        zIndex: "100",
+        padding: "4px",
+        backgroundColor: "transparent",
+        border: "none",
+        fontSize: "20px",
       }}
       className="theme-button"
     >
-      <i className="fas fa-sun" style={{ color: darkMode ? '#fff' : '#000' }}></i>
-      <i className="fas fa-moon" style={{ display: darkMode ? 'none' : 'inline-block' }}></i>
+      {darkMode ? (
+        <i className="fas fa-sun" style={{ color: "#fff" }}></i>
+      ) : (
+        <i className="fas fa-moon" style={{ color: "#000" }}></i>
+      )}
     </button>
   );
 }

@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import "./chatstyle.css"
 import Spinner from "./spinner.svg"
 import SendIcon from "./send.svg"
+import ShareButton from './ShareButton';
 import {
     GoogleGenerativeAI,
     HarmCategory,
@@ -20,7 +21,7 @@ const ChatComponent = () => {
     const [loading, setLoading] = useState(false);
     const textareaRef = useRef(null);
     const chatRef = useRef(null);
-    const historyRef = useRef([]); 
+    const historyRef = useRef([]);
 
     useEffect(() => {
         initChat();
@@ -95,10 +96,10 @@ const ChatComponent = () => {
         const messageId = Date.now();
         const userMessage = userInput.trim();
 
-        setChatHistory(prev => [...prev, { 
-            id: messageId, 
-            user: userMessage, 
-            bot: '' 
+        setChatHistory(prev => [...prev, {
+            id: messageId,
+            user: userMessage,
+            bot: ''
         }]);
 
         try {
@@ -120,7 +121,7 @@ const ChatComponent = () => {
 
                 const currentFullResponse = fullResponse;
 
-                
+
                 setChatHistory(prev => prev.map(msg => {
                     if (msg.id === messageId) {
                         return {
@@ -150,7 +151,7 @@ const ChatComponent = () => {
         } catch (error) {
             console.error("Error generating response:", error);
             const errorResponse = `<p style="color: lightcoral; font-size: 16px;">Error: Text generation failed. Please retry/refresh or contact support.</p>`;
-            
+
             setChatHistory(prev => prev.map(msg => {
                 if (msg.id === messageId) {
                     return { ...msg, bot: errorResponse };
@@ -228,46 +229,52 @@ const ChatComponent = () => {
                 {chatHistory.map((item) => (
                     <div key={item.id} style={{ marginBottom: '10px' }} className='chatgroup'>
                         <div className="user-message">
-                            <p><strong>You: <br /></strong> {item.user}</p>
+                            <p><strong></strong> {item.user}</p>
                         </div>
                         <div className="bot-message txt">
                             <p>
-                                <strong>Ary:</strong>
+                                {/* <strong>Ary:</strong> */}
+                                <strong>
+                                    {/* <i class="fas fa-circle-notch "></i> */}
+                                </strong>
+
+
                                 <button className='speechbutton' onClick={(e) => speakText(decodeHtmlEntities(item.bot), e.currentTarget)}>
                                     <i className="fas fa-volume-down"></i>
                                 </button>
-                                <br />
+                                {/* <br /> */}
                                 <span dangerouslySetInnerHTML={{ __html: item.bot }} className='txt' />
                             </p>
                             <CopyToClipboardButton text={decodeHtmlEntities(item.bot)} />
+                            <ShareButton text={decodeHtmlEntities(item.bot)}></ShareButton>
                         </div>
                     </div>
                 ))}
             </div>
             <div className='msgfrm'>
-                <textarea 
-                    ref={textareaRef} 
-                    type="text" 
-                    value={userInput} 
-                    onChange={handleUserInput} 
-                    onKeyDown={handleUserInput} 
-                    autoFocus 
-                    placeholder='Message AryBot' 
-                    id='queryinput' 
+                <textarea
+                    ref={textareaRef}
+                    type="text"
+                    value={userInput}
+                    onChange={handleUserInput}
+                    onKeyDown={handleUserInput}
+                    autoFocus
+                    placeholder='Message AryBot'
+                    id='queryinput'
                 />
                 <button onClick={handleSendMessage} disabled={loading}>
-                    {loading ? 
-                        <img src={Spinner} alt="" /> : 
-                        <img 
-                            src={SendIcon} 
-                            alt="" 
-                            style={{ 
-                                position: 'absolute', 
-                                top: '50%', 
-                                left: '50%', 
-                                transform: 'translate(-50%, -50%)', 
-                                height: '30px' 
-                            }} 
+                    {loading ?
+                        <img src={Spinner} alt="" /> :
+                        <img
+                            src={SendIcon}
+                            alt=""
+                            style={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                height: '30px'
+                            }}
                         />
                     }
                 </button>

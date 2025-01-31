@@ -88,89 +88,78 @@ const ChatComponent = () => {
     };
 
 
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const handleImageUpload = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setSelectedImage(reader.result); // Base64 encoded image
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
 
     const handleSendMessage = async () => {
-        if (userInput.trim() === '' || loading) return;
+        if (userInput.trim() === '' && !selectedImage) return;
         setLoading(true);
 
         const messageId = Date.now();
         const userMessage = userInput.trim();
+        const imageBase64 = selectedImage ? selectedImage.split(',')[1] : null; // Remove "data:image/jpeg;base64,"
 
-        setChatHistory(prev => [...prev, {
-            id: messageId,
-            user: userMessage,
-            bot: ''
-        }]);
+        setChatHistory(prev => [...prev, { id: messageId, user: userMessage, bot: '', image: selectedImage }]);
 
         try {
             historyRef.current.push({
                 role: "user",
-                parts: [{ text: userMessage }],
+                parts: [
+                    { text: userMessage },
+                    imageBase64 ? { inlineData: { data: imageBase64, mimeType: "image/jpeg" } } : null
+                ].filter(Boolean), // Remove null values
             });
 
             if (!chatRef.current) {
                 await reinitializeChat();
             }
 
-            const result = await chatRef.current.sendMessageStream(userMessage);
-            let fullResponse = '';
+            const result = await chatRef.current.sendMessageStream([
+                imageBase64 ? { inlineData: { data: imageBase64, mimeType: "image/jpeg" } } : null,
+                userMessage
+            ].filter(Boolean));
+
+
+            // New code to use instead
+            let accumulatedResponse = '';
+
+            const updateChatHistory = (response) => {
+                setChatHistory(prev =>
+                    prev.map(msg =>
+                        msg.id === messageId
+                            ? { ...msg, bot: convertMarkdownToHTML(response) }
+                            : msg
+                    )
+                );
+            };
 
             for await (const chunk of result.stream) {
-                const chunkText = chunk.text();
-                fullResponse += chunkText;
-
-                const currentFullResponse = fullResponse;
-
-
-                setChatHistory(prev => prev.map(msg => {
-                    if (msg.id === messageId) {
-                        return {
-                            ...msg,
-                            bot: convertMarkdownToHTML(currentFullResponse)
-                        };
-                    }
-                    return msg;
-                }));
+                accumulatedResponse += chunk.text();
+                updateChatHistory(accumulatedResponse);
             }
 
-            historyRef.current.push({
-                role: "model",
-                parts: [{ text: fullResponse }],
-            });
-
-            if (fullResponse.length < 1) {
-                const errorResponse = `<p style="color: lightcoral; font-size: 16px;">Error: Text generation failed. Please retry/refresh or contact support.</p>`;
-                setChatHistory(prev => prev.map(msg => {
-                    if (msg.id === messageId) {
-                        return { ...msg, bot: errorResponse };
-                    }
-                    return msg;
-                }));
-            }
+            historyRef.current.push({ role: "model", parts: [{ text: accumulatedResponse }] });
 
         } catch (error) {
             console.error("Error generating response:", error);
-            const errorResponse = `<p style="color: lightcoral; font-size: 16px;">Error: Text generation failed. Please retry/refresh or contact support.</p>`;
-
-            setChatHistory(prev => prev.map(msg => {
-                if (msg.id === messageId) {
-                    return { ...msg, bot: errorResponse };
-                }
-                return msg;
-            }));
-
-            await reinitializeChat();
         }
 
         setUserInput('');
-
-
+        setSelectedImage(null); // Clear selected image
         setLoading(false);
-        const textarea = textareaRef.current;
-        if (textarea) {
-            textarea.style.height = 'auto';
-        }
     };
+
 
     function speakText(text, elem) {
         const button = elem
@@ -227,31 +216,39 @@ const ChatComponent = () => {
         <div className="chat-container" ref={chatRef}>
             <div className="message-container">
                 {chatHistory.map((item) => (
-                    <div key={item.id} style={{ marginBottom: '10px' }} className='chatgroup'>
+                    <div key={item.id} className='chatgroup'>
                         <div className="user-message">
-                            <p><strong></strong> {item.user}</p>
+                            {item.image && <img src={item.image} alt="Uploaded" className='uploaded-image' />}
+                            <p>{item.user}</p>
                         </div>
                         <div className="bot-message txt">
                             <p>
-                                {/* <strong>Ary:</strong> */}
-                                <strong>
-                                    {/* <i class="fas fa-circle-notch "></i> */}
-                                </strong>
-
-
                                 <button className='speechbutton' onClick={(e) => speakText(decodeHtmlEntities(item.bot), e.currentTarget)}>
                                     <i className="fas fa-volume-down"></i>
                                 </button>
-                                {/* <br /> */}
                                 <span dangerouslySetInnerHTML={{ __html: item.bot }} className='txt' />
                             </p>
                             <CopyToClipboardButton text={decodeHtmlEntities(item.bot)} />
-                            <ShareButton text={decodeHtmlEntities(item.bot)}></ShareButton>
+                            <ShareButton text={decodeHtmlEntities(item.bot)} />
                         </div>
                     </div>
                 ))}
             </div>
+
             <div className='msgfrm'>
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    style={{ display: 'none' }}
+                    id="imageInput"
+                />
+                <button className="attach-btn" onClick={() => document.getElementById('imageInput').click()}>
+                    <i className='fa fa-paperclip'></i>
+                </button>
+                <input type="file" id="imageInput" accept="image/*" capture="camera" onChange={handleImageUpload} />
+
+
                 <textarea
                     ref={textareaRef}
                     type="text"
@@ -262,23 +259,12 @@ const ChatComponent = () => {
                     placeholder='Message AryBot'
                     id='queryinput'
                 />
-                <button onClick={handleSendMessage} disabled={loading}>
-                    {loading ?
-                        <img src={Spinner} alt="" /> :
-                        <img
-                            src={SendIcon}
-                            alt=""
-                            style={{
-                                position: 'absolute',
-                                top: '50%',
-                                left: '50%',
-                                transform: 'translate(-50%, -50%)',
-                                height: '30px'
-                            }}
-                        />
-                    }
+
+                <button onClick={handleSendMessage} disabled={loading} className='send-btn'>
+                    {loading ? <img src={Spinner} alt="" /> : <img src={SendIcon} alt="" />}
                 </button>
             </div>
+
         </div>
     );
 };

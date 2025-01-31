@@ -36,7 +36,7 @@ body::-webkit-scrollbar {
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-bottom: 100px;
+  margin-bottom: 150px;
   padding: 12px;
   /* border-bottom: 1px solid #ccc; */
 }
@@ -121,7 +121,7 @@ body::-webkit-scrollbar {
 
 .msgfrm {
   display: flex;
-  width: 96%;
+  width: 98%;
   position: fixed;
   bottom: 15px;
   gap: 5px;
@@ -130,14 +130,19 @@ body::-webkit-scrollbar {
   max-width: 1000px;
   border-radius: 24px;
   align-items: flex-end;
+  padding: 10px;
+  padding-bottom: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .msgfrm #queryinput {
   flex: 1;
-  padding: 0px 15px;
-  padding-top: 15px;
-  padding-right: 50px;
-  border: 1px solid #ccc;
+  padding: 0px 10px;
+  padding-top: 5px;
+  /* padding-right: 50px;
+  padding-left: 40px; */
+  /* border: 1px solid #ccc; */
+  border: none;
   border-radius: 25px;
   font-size: 17px;
   outline: none;
@@ -148,19 +153,23 @@ body::-webkit-scrollbar {
 
 
 
-.msgfrm button {
+.msgfrm .send-btn {
   position: absolute;
   right: 4px;
   bottom: 4.5px;
-  padding: 24px;
+  /* padding: 24px; */
   border: none;
   border-radius: 24px;
   background-color: #007bff;
   color: #fff;
   cursor: pointer;
   height: 100%;
-  max-height: 25px;
-  max-width: 25px;
+  /* max-height: 25px;
+
+  max-width: 25px; */
+
+  height: 40px;
+  width: 40px;
 
   transform: 'translate(-50%, -50%)';
   justify-content: center;
@@ -169,7 +178,7 @@ body::-webkit-scrollbar {
 }
 
 
-.msgfrm button:hover {
+.msgfrm .send-btn:hover {
   background-color: #0056b3;
 }
 
@@ -308,8 +317,8 @@ pre::-webkit-scrollbar {
 }
 
 .dark-mode .msgfrm #queryinput {
-  border: 1px solid rgba(68, 68, 68, 1);
-  background-color: rgba(68, 68, 68, 0.4);
+  /* border: 1px solid rgba(68, 68, 68, 1); */
+  background-color: #222;
   color: #f4f4f4;
 }
 
@@ -402,4 +411,48 @@ td {
 .dark-mode .share-button {
   color: #d1cfcf;
 
+}
+
+
+.attach-btn {
+  position: absolute;
+  left: 4px;
+  bottom: 4.5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s ease-in-out;
+  color: #555;
+  /* background-color: transparent; */
+  width: 40px;
+  height: 40px;
+}
+
+.attach-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: #000;
+}
+
+.attach-btn:active {
+  transform: scale(0.9);
+}
+
+#imageInput {
+  display: none;
+}
+
+.attach-icon {
+  font-size: 1.4rem;
+  color: inherit;
+}
+
+
+
+.uploaded-image{
+  width: 100px;
+  height: auto;
+  border-radius: 10px;
 }

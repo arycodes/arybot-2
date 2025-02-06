@@ -414,9 +414,9 @@ td {
 }
 
 
-.attach-btn {
+.attach-btn , .mic-btn {
   position: absolute;
-  left: 4px;
+  left: 30px;
   bottom: 4.5px;
   background: none;
   border: none;
@@ -426,17 +426,20 @@ td {
   border-radius: 50%;
   transition: all 0.2s ease-in-out;
   color: #555;
-  /* background-color: transparent; */
   width: 40px;
   height: 40px;
 }
 
-.attach-btn:hover {
+.mic-btn{
+  left: 4px;
+}
+
+.attach-btn:hover , .mic-btn:hover {
   background: rgba(0, 0, 0, 0.1);
   color: #000;
 }
 
-.attach-btn:active {
+.attach-btn:active , .mic-btn:active {
   transform: scale(0.9);
 }
 

@@ -189,6 +189,30 @@ const ChatComponent = () => {
             };
         }
     }
+    const startSpeechRecognition = () => {
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+
+        recognition.lang = "en-US"; 
+        recognition.start();
+
+        recognition.onstart = () => {
+            console.log("Voice recognition started...");
+        };
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            setUserInput(prevInput => prevInput + (prevInput ? ' ' : '') + transcript);
+        };
+
+        recognition.onerror = (event) => {
+            console.error("Speech recognition error:", event.error);
+        };
+
+        recognition.onend = () => {
+            console.log("Voice recognition ended.");
+        };
+    };
+
 
     function decodeHtmlEntities(html) {
         const parser = new DOMParser();
@@ -257,6 +281,10 @@ const ChatComponent = () => {
                 <button className="attach-btn" onClick={() => document.getElementById('imageInput').click()}>
                     <i className='fa fa-paperclip'></i>
                 </button>
+                <button className="mic-btn" onClick={startSpeechRecognition}>
+                    <i className="fa fa-microphone"></i>
+                </button>
+
                 <input type="file" id="imageInput" accept="image/*" capture="camera" onChange={handleImageUpload} />
 
 

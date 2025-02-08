@@ -156,6 +156,16 @@ const ChatComponent = () => {
 
         } catch (error) {
             console.error("Error generating response:", error);
+
+            // const errorMessage = error.message || error.toString();
+            const errorMessage = "An error occurred while generating response. Please try again. or contact AryBot Team";
+            setChatHistory(prev =>
+                prev.map(msg =>
+                    msg.id === messageId
+                        ? { ...msg, bot: `<span class="error">Error: ${errorMessage}</span>` }
+                        : msg
+                )
+            );
         }
 
         setSelectedImage(null); // Clear selected image
@@ -192,7 +202,7 @@ const ChatComponent = () => {
     const startSpeechRecognition = () => {
         const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 
-        recognition.lang = "en-US"; 
+        recognition.lang = "en-US";
         recognition.start();
 
         recognition.onstart = () => {

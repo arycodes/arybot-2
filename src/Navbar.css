@@ -97,7 +97,7 @@ img {
 }
 
 .dark-mode .navbar {
-  background-color: #1f1f1f;
+  background-color: #111;
   /* border-right: 1px solid #333; */
 
 }
@@ -156,6 +156,6 @@ img {
 }
 
 .dark-mode .sourcebuttons {
-  background-color: #3333334d;
+  background-color: #111;
   color: #f4f4f4;
 }

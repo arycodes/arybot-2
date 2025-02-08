@@ -137,11 +137,12 @@ body::-webkit-scrollbar {
 
 .msgfrm #queryinput {
   flex: 1;
-  padding: 0px 10px;
-  padding-top: 5px;
+  padding: 0px 12px;
+  padding-top: 10px;
   /* padding-right: 50px;
   padding-left: 40px; */
   /* border: 1px solid #ccc; */
+  margin-bottom: 10px;
   border: none;
   border-radius: 25px;
   font-size: 17px;
@@ -293,7 +294,7 @@ pre::-webkit-scrollbar {
 
 .dark-mode {
   /* background-color: #1f1f1f; */
-  background-color: #181818;
+  background-color: #111;
   color: #f4f4f4;
 }
 
@@ -302,7 +303,7 @@ pre::-webkit-scrollbar {
 } */
 
 .dark-mode .user-message {
-  background-color: #3333334d;
+  background-color: rgba(34, 34, 34, 0.3);
 
 }
 
@@ -312,13 +313,13 @@ pre::-webkit-scrollbar {
 }
 
 .dark-mode .msgfrm {
-  background-color: #222;
+  background-color: #191919;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .dark-mode .msgfrm #queryinput {
   /* border: 1px solid rgba(68, 68, 68, 1); */
-  background-color: #222;
+  background-color: #191919;
   color: #f4f4f4;
 }
 
@@ -342,7 +343,7 @@ pre::-webkit-scrollbar {
 
 table {
   border-collapse: collapse;
-  border: 1px solid rgba(68, 68, 68, 0.2);
+  /* border: 1px solid rgba(68, 68, 68, 0.2); */
   border-radius: 8px;
 
   display: block;
@@ -357,9 +358,17 @@ td {
   border-radius: 8px;
 }
 
-.dark-mode table {
-  border: 1px solid rgba(238, 238, 238, 0.4);
+th {
+  background-color: #f9f9f9;
 }
+
+.dark-mode th {
+  background-color: #222;
+}
+
+/* .dark-mode table {
+  border: 1px solid rgba(238, 238, 238, 0.4);
+} */
 
 .dark-mode th,
 .dark-mode td {
@@ -374,7 +383,7 @@ td {
 
 .dark-mode .txt code,
 .dark-mode .txt pre {
-  background-color: #333;
+  background-color: #222;
   color: #fff;
 }
 
@@ -414,7 +423,8 @@ td {
 }
 
 
-.attach-btn , .mic-btn {
+.attach-btn,
+.mic-btn {
   position: absolute;
   left: 30px;
   bottom: 4.5px;
@@ -430,16 +440,18 @@ td {
   height: 40px;
 }
 
-.mic-btn{
+.mic-btn {
   left: 4px;
 }
 
-.attach-btn:hover , .mic-btn:hover {
+.attach-btn:hover,
+.mic-btn:hover {
   background: rgba(0, 0, 0, 0.1);
   color: #000;
 }
 
-.attach-btn:active , .mic-btn:active {
+.attach-btn:active,
+.mic-btn:active {
   transform: scale(0.9);
 }
 
@@ -454,7 +466,7 @@ td {
 
 
 
-.uploaded-image{
+.uploaded-image {
   width: 100px;
   height: auto;
   border-radius: 10px;
@@ -462,42 +474,42 @@ td {
 
 
 .image-preview {
-    position: absolute;
-    display: inline-block;
-    max-width: 100px;
-    max-height: 100px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    top: -125%;
-    overflow-y: scroll;
+  position: absolute;
+  display: inline-block;
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  top: -125%;
+  overflow-y: scroll;
 
 }
 
 .preview-image {
-  
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .remove-image-btn {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: red;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    font-size: 14px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .remove-image-btn:hover {
-    background: darkred;
+  background: darkred;
 }

@@ -19,7 +19,7 @@ function ThemeButton() {
   };
 
   useEffect(() => {
-    const currentThemeColor = darkMode ? "#1f1f1f" : "#fff";
+    const currentThemeColor = darkMode ? "#111" : "#fff";
     const themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
 
     if (themeColorMetaTag) {

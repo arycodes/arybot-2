@@ -51,7 +51,7 @@
 }
 
 .hamb svg path {
-    fill: #1f1f1f;
+    fill: #111;
 
 }
 
@@ -72,7 +72,7 @@
 
 
 .dark-mode #header {
-    background-color: #1f1f1f;
+    background-color: #111;
     color: #f4f4f4;
 }
 

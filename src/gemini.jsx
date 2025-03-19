@@ -20,6 +20,7 @@ const ChatComponent = () => {
     const [userInput, setUserInput] = useState('');
     const [chatHistory, setChatHistory] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [isImageModel, setIsImageModel] = useState(false); // Toggle state
     const textareaRef = useRef(null);
     const chatRef = useRef(null);
     const historyRef = useRef([]);
@@ -142,9 +143,6 @@ const ChatComponent = () => {
         const userMessage = userInput.trim();
         setUserInput('');
         
-        // Check if this is an image generation request
-        const isImageGenRequest = userMessage.startsWith("@genimg");
-        
         // Add user message to chat history
         setChatHistory(prev => [...prev, { 
             id: messageId, 
@@ -155,12 +153,9 @@ const ChatComponent = () => {
         }]);
         
         try {
-            if (isImageGenRequest) {
-                // Extract the image prompt (remove the @genimg prefix)
-                const imagePrompt = userMessage.replace("@genimg", "").trim();
-                
+            if (isImageModel) {
                 // Generate the image
-                const { imageData, text } = await generateImage(imagePrompt);
+                const { imageData, text } = await generateImage(userMessage);
                 
                 // Update chat history with the generated image and any accompanying text
                 setChatHistory(prev =>
@@ -174,8 +169,6 @@ const ChatComponent = () => {
                             : msg
                     )
                 );
-                
-                // Don't add image generation requests to the chat history with the main model
             } else {
                 // Regular chat processing
                 const imageBase64 = selectedImage ? selectedImage.split(',')[1] : null;
@@ -366,13 +359,25 @@ const ChatComponent = () => {
                     onChange={handleUserInput}
                     onKeyDown={handleUserInput}
                     autoFocus
-                    placeholder='Message AryBot (Type @genimg to generate images)'
+                    placeholder='Message AryBot'
                     id='queryinput'
                 />
 
                 <button onClick={handleSendMessage} disabled={loading} className='send-btn'>
                     {loading ? <img src={Spinner} alt="" /> : <img src={SendIcon} alt="" />}
                 </button>
+
+                <div className="toggle-container">
+                    <label className="toggle-label">
+                        <input
+                            type="checkbox"
+                            checked={isImageModel}
+                            onChange={() => setIsImageModel(!isImageModel)}
+                        />
+                        <span className="toggle-slider"></span>
+                    </label>
+                    <span className="toggle-text">{isImageModel ? 'Image Model' : 'Text Model'}</span>
+                </div>
             </div>
         </div>
     );

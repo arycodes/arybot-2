@@ -145,12 +145,12 @@ body::-webkit-scrollbar {
 }
 
 
-.error {
-  color: rgba(255, 0, 0, 0.6);
+span .error {
+  color: rgba(255, 0, 0, 0.6) !important; 
 }
 
-.dark-mode .error {
-  color: rgba(211, 36, 36, 0.6);
+span .dark-mode .error {
+  color: rgba(211, 36, 36, 0.6) !important;
 }
 
 

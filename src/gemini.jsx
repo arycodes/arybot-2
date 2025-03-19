@@ -71,6 +71,7 @@ const ChatComponent = () => {
             event.preventDefault();
             handleSendMessage();
             autoResizeTextarea();
+            setSelectedImage(null);
         } else {
             setUserInput(event.target.value);
             autoResizeTextarea();

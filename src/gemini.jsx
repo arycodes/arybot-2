@@ -69,6 +69,8 @@ const ChatComponent = () => {
         if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
             handleSendMessage();
+            autoResizeTextarea();
+
         } else {
             setUserInput(event.target.value);
             autoResizeTextarea();
@@ -255,7 +257,7 @@ const ChatComponent = () => {
                     <div key={item.id} className='chatgroup'>
                         <div className="user-message">
                             {item.image && <img src={item.image} alt="Uploaded" className='uploaded-image' />}
-                            <p>{item.user}</p>
+                            <pre>{item.user}</pre>
                         </div>
                         <div className="bot-message txt">
                             <p>

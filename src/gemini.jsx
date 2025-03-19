@@ -12,8 +12,9 @@ import {
 import convertMarkdownToHTML from './convertmarkedtohtml';
 import CopyToClipboardButton from './copytoclipboard';
 
-const MODEL_NAME = "gemini-1.5-flash";
 const API_KEY = "AIzaSyDsQPFA9YEx4PeeYJOQzV9OueebgS6WJLI";
+const CHAT_MODEL = "gemini-1.5-flash";
+const IMAGE_GEN_MODEL = "gemini-2.0-flash-exp-image-generation";
 
 const ChatComponent = () => {
     const [userInput, setUserInput] = useState('');
@@ -29,7 +30,7 @@ const ChatComponent = () => {
 
     const initChat = async () => {
         const genAI = new GoogleGenerativeAI(API_KEY);
-        const model = genAI.getGenerativeModel({ model: MODEL_NAME });
+        const model = genAI.getGenerativeModel({ model: CHAT_MODEL });
 
         const generationConfig = {
             temperature: 0.9,
@@ -70,7 +71,6 @@ const ChatComponent = () => {
             event.preventDefault();
             handleSendMessage();
             autoResizeTextarea();
-
         } else {
             setUserInput(event.target.value);
             autoResizeTextarea();
@@ -89,7 +89,6 @@ const ChatComponent = () => {
         await initChat();
     };
 
-
     const [selectedImage, setSelectedImage] = useState(null);
 
     const handleImageUpload = (event) => {
@@ -103,64 +102,122 @@ const ChatComponent = () => {
         }
     };
 
+    const generateImage = async (imagePrompt) => {
+        const genAI = new GoogleGenerativeAI(API_KEY);
+        
+        // Configure the image generation model
+        const model = genAI.getGenerativeModel({
+            model: IMAGE_GEN_MODEL,
+            generationConfig: {
+                responseModalities: ['Text', 'Image']
+            },
+        });
+
+        try {
+            const response = await model.generateContent(imagePrompt);
+            let generatedImageData = null;
+            let generatedText = null;
+            
+            for (const part of response.response.candidates[0].content.parts) {
+                if (part.text) {
+                    generatedText = part.text;
+                } else if (part.inlineData) {
+                    generatedImageData = `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
+                }
+            }
+            
+            return { imageData: generatedImageData, text: generatedText };
+        } catch (error) {
+            console.error("Error generating image:", error);
+            throw error;
+        }
+    };
 
     const handleSendMessage = async () => {
         if (userInput.trim() === '' && !selectedImage) return;
+        
         setLoading(true);
-        setUserInput('');
-        setSelectedImage(null); // Clear selected image
-
-
         const messageId = Date.now();
         const userMessage = userInput.trim();
-        const imageBase64 = selectedImage ? selectedImage.split(',')[1] : null; // Remove "data:image/jpeg;base64,"
-
-        setChatHistory(prev => [...prev, { id: messageId, user: userMessage, bot: '', image: selectedImage }]);
-
+        setUserInput('');
+        
+        // Check if this is an image generation request
+        const isImageGenRequest = userMessage.startsWith("@genimg");
+        
+        // Add user message to chat history
+        setChatHistory(prev => [...prev, { 
+            id: messageId, 
+            user: userMessage, 
+            bot: '', 
+            image: selectedImage,
+            generatedImage: null
+        }]);
+        
         try {
-            historyRef.current.push({
-                role: "user",
-                parts: [
-                    { text: userMessage },
-                    imageBase64 ? { inlineData: { data: imageBase64, mimeType: "image/jpeg" } } : null
-                ].filter(Boolean), // Remove null values
-            });
-
-            if (!chatRef.current) {
-                await reinitializeChat();
-            }
-
-            const result = await chatRef.current.sendMessageStream([
-                imageBase64 ? { inlineData: { data: imageBase64, mimeType: "image/jpeg" } } : null,
-                userMessage
-            ].filter(Boolean));
-
-
-            // New code to use instead
-            let accumulatedResponse = '';
-
-            const updateChatHistory = (response) => {
+            if (isImageGenRequest) {
+                // Extract the image prompt (remove the @genimg prefix)
+                const imagePrompt = userMessage.replace("@genimg", "").trim();
+                
+                // Generate the image
+                const { imageData, text } = await generateImage(imagePrompt);
+                
+                // Update chat history with the generated image and any accompanying text
                 setChatHistory(prev =>
                     prev.map(msg =>
                         msg.id === messageId
-                            ? { ...msg, bot: convertMarkdownToHTML(response) }
+                            ? { 
+                                ...msg, 
+                                bot: text ? convertMarkdownToHTML(text) : "Image generated successfully.", 
+                                generatedImage: imageData 
+                              }
                             : msg
                     )
                 );
-            };
+                
+                // Don't add image generation requests to the chat history with the main model
+            } else {
+                // Regular chat processing
+                const imageBase64 = selectedImage ? selectedImage.split(',')[1] : null;
 
-            for await (const chunk of result.stream) {
-                accumulatedResponse += chunk.text();
-                updateChatHistory(accumulatedResponse);
+                historyRef.current.push({
+                    role: "user",
+                    parts: [
+                        { text: userMessage },
+                        imageBase64 ? { inlineData: { data: imageBase64, mimeType: "image/jpeg" } } : null
+                    ].filter(Boolean),
+                });
+
+                if (!chatRef.current) {
+                    await reinitializeChat();
+                }
+
+                const result = await chatRef.current.sendMessageStream([
+                    imageBase64 ? { inlineData: { data: imageBase64, mimeType: "image/jpeg" } } : null,
+                    userMessage
+                ].filter(Boolean));
+
+                let accumulatedResponse = '';
+
+                const updateChatHistory = (response) => {
+                    setChatHistory(prev =>
+                        prev.map(msg =>
+                            msg.id === messageId
+                                ? { ...msg, bot: convertMarkdownToHTML(response) }
+                                : msg
+                        )
+                    );
+                };
+
+                for await (const chunk of result.stream) {
+                    accumulatedResponse += chunk.text();
+                    updateChatHistory(accumulatedResponse);
+                }
+
+                historyRef.current.push({ role: "model", parts: [{ text: accumulatedResponse }] });
             }
-
-            historyRef.current.push({ role: "model", parts: [{ text: accumulatedResponse }] });
-
         } catch (error) {
-            console.error("Error generating response:", error);
-
-            // const errorMessage = error.message || error.toString();
-            const errorMessage = "An error occurred while generating response. Please try again. or contact AryBot Team";
+            console.error("Error processing message:", error);
+            const errorMessage = "An error occurred while processing your request. Please try again or contact the AryBot Team.";
             setChatHistory(prev =>
                 prev.map(msg =>
                     msg.id === messageId
@@ -174,9 +231,8 @@ const ChatComponent = () => {
         setLoading(false);
     };
 
-
     function speakText(text, elem) {
-        const button = elem
+        const button = elem;
         const speechButtons = document.querySelectorAll('.speechbutton');
         speechButtons.forEach(sb => {
             sb.innerHTML = `<i class="fas fa-volume-down"></i>`;
@@ -201,6 +257,7 @@ const ChatComponent = () => {
             };
         }
     }
+
     const startSpeechRecognition = () => {
         const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 
@@ -224,7 +281,6 @@ const ChatComponent = () => {
             console.log("Voice recognition ended.");
         };
     };
-
 
     function decodeHtmlEntities(html) {
         const parser = new DOMParser();
@@ -260,6 +316,11 @@ const ChatComponent = () => {
                             <pre>{item.user}</pre>
                         </div>
                         <div className="bot-message txt">
+                            {item.generatedImage && (
+                                <div className="generated-image-container">
+                                    <img src={item.generatedImage} alt="Generated" className="generated-image" />
+                                </div>
+                            )}
                             <p>
                                 <button className='speechbutton' onClick={(e) => speakText(decodeHtmlEntities(item.bot), e.currentTarget)}>
                                     <i className="fas fa-volume-down"></i>
@@ -274,14 +335,12 @@ const ChatComponent = () => {
             </div>
 
             <div className='msgfrm'>
-
                 {selectedImage && (
                     <div className="image-preview">
                         <img src={selectedImage} alt="Selected" className="preview-image" />
                         <button className="remove-image-btn" onClick={() => setSelectedImage(null)}>✖</button>
                     </div>
                 )}
-
 
                 <input
                     type="file"
@@ -299,7 +358,6 @@ const ChatComponent = () => {
 
                 <input type="file" id="imageInput" accept="image/*" capture="camera" onChange={handleImageUpload} />
 
-
                 <textarea
                     ref={textareaRef}
                     type="text"
@@ -307,7 +365,7 @@ const ChatComponent = () => {
                     onChange={handleUserInput}
                     onKeyDown={handleUserInput}
                     autoFocus
-                    placeholder='Message AryBot'
+                    placeholder='Message AryBot (Type @genimg to generate images)'
                     id='queryinput'
                 />
 
@@ -315,7 +373,6 @@ const ChatComponent = () => {
                     {loading ? <img src={Spinner} alt="" /> : <img src={SendIcon} alt="" />}
                 </button>
             </div>
-
         </div>
     );
 };

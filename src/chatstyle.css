@@ -122,16 +122,34 @@ body::-webkit-scrollbar {
 }
 
 
+.generated-image-container {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  max-width: 300px;
+}
+
+.generated-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .dark-mode .bot-message .speechbutton {
   /* background-color: rgba(119, 119, 119, 0.3); */
   color: #d1cfcf;
 }
 
 
-.error{
+.error {
   color: rgba(255, 0, 0, 0.6);
 }
-.dark-mode .error{
+
+.dark-mode .error {
   color: rgba(211, 36, 36, 0.6);
 }
 
@@ -168,6 +186,10 @@ body::-webkit-scrollbar {
   resize: none;
 }
 
+
+.msgfrm #queryinput::placeholder {
+  font-size: 16px;
+  }
 
 
 
@@ -329,6 +351,8 @@ pre::-webkit-scrollbar {
 
 }
 
+
+
 .dark-mode .msgfrm {
   background-color: #191919;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
@@ -354,7 +378,8 @@ pre::-webkit-scrollbar {
 .dark-mode .txt blockquote,
 .dark-mode .txt img,
 .dark-mode .txt table *,
-.dark-mode .txt hr {
+.dark-mode .txt hr,
+.dark-mode .txt span {
   color: #eee;
 }
 

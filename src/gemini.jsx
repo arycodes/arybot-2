@@ -15,7 +15,24 @@ import CopyToClipboardButton from './copytoclipboard';
 const API_KEY = "AIzaSyDsQPFA9YEx4PeeYJOQzV9OueebgS6WJLI";
 const CHAT_MODEL = "gemini-1.5-flash";
 const IMAGE_GEN_MODEL = "gemini-2.0-flash-exp-image-generation";
+const System_Instruction = `
+You are **AryBot**, an AI-powered chatbot created by **Aryan Mishra**, the founder of **AryCodes**. Your primary role is to assist users by providing quick and intelligent responses to their queries.  
 
+### **Your Responsibilities:**  
+- Answer general questions accurately and efficiently.  
+- Provide coding assistance, including explaining concepts, debugging, and offering best practices.  
+- Offer technical support for web development, backend systems, and integrations.  
+- Guide users on project development and implementation.  
+- Assist with troubleshooting errors and suggesting improvements.  
+
+### **Guidelines:**  
+- Be clear, concise, and helpful in your responses.  
+- Stay professional yet friendly to enhance user experience.  
+- If a question is unclear, ask for clarification instead of assuming.  
+- If a query goes beyond your knowledge, acknowledge it and suggest alternative solutions.  
+    For any inquiries or assistance, you can give contact as  **Aryan Mishra** at **arycodes.in@gmail.com** or Contact to **[aryan](https://www.aryn.in/contact) aryans personal website**.
+
+`
 const ChatComponent = () => {
     const [userInput, setUserInput] = useState('');
     const [chatHistory, setChatHistory] = useState([]);
@@ -31,7 +48,10 @@ const ChatComponent = () => {
 
     const initChat = async () => {
         const genAI = new GoogleGenerativeAI(API_KEY);
-        const model = genAI.getGenerativeModel({ model: CHAT_MODEL });
+        const model = genAI.getGenerativeModel({
+            model: CHAT_MODEL ,
+            systemInstruction: System_Instruction
+        });
 
         const generationConfig = {
             temperature: 0.9,
@@ -106,7 +126,7 @@ const ChatComponent = () => {
 
     const generateImage = async (imagePrompt) => {
         const genAI = new GoogleGenerativeAI(API_KEY);
-        
+
         // Configure the image generation model
         const model = genAI.getGenerativeModel({
             model: IMAGE_GEN_MODEL,
@@ -119,7 +139,7 @@ const ChatComponent = () => {
             const response = await model.generateContent(imagePrompt);
             let generatedImageData = null;
             let generatedText = null;
-            
+
             for (const part of response.response.candidates[0].content.parts) {
                 if (part.text) {
                     generatedText = part.text;
@@ -127,7 +147,7 @@ const ChatComponent = () => {
                     generatedImageData = `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
                 }
             }
-            
+
             return { imageData: generatedImageData, text: generatedText };
         } catch (error) {
             console.error("Error generating image:", error);
@@ -137,35 +157,35 @@ const ChatComponent = () => {
 
     const handleSendMessage = async () => {
         if (userInput.trim() === '' && !selectedImage) return;
-        
+
         setLoading(true);
         const messageId = Date.now();
         const userMessage = userInput.trim();
         setUserInput('');
-        
+
         // Add user message to chat history
-        setChatHistory(prev => [...prev, { 
-            id: messageId, 
-            user: userMessage, 
-            bot: '', 
+        setChatHistory(prev => [...prev, {
+            id: messageId,
+            user: userMessage,
+            bot: '',
             image: selectedImage,
             generatedImage: null
         }]);
-        
+
         try {
             if (isImageModel) {
                 // Generate the image
                 const { imageData, text } = await generateImage(userMessage);
-                
+
                 // Update chat history with the generated image and any accompanying text
                 setChatHistory(prev =>
                     prev.map(msg =>
                         msg.id === messageId
-                            ? { 
-                                ...msg, 
-                                bot: text ? convertMarkdownToHTML(text) : "Image generated successfully.", 
-                                generatedImage: imageData 
-                              }
+                            ? {
+                                ...msg,
+                                bot: text ? convertMarkdownToHTML(text) : "Image generated successfully.",
+                                generatedImage: imageData
+                            }
                             : msg
                     )
                 );

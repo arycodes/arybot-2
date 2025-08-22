@@ -12,7 +12,7 @@ import {
 import convertMarkdownToHTML from './convertmarkedtohtml';
 import CopyToClipboardButton from './copytoclipboard';
 
-const API_KEY = "AIzaSyDsQPFA9YEx4PeeYJOQzV9OueebgS6WJLI";
+const API_KEY = "AIzaSyATcDqhPY5bJ5GnCFONRFhFDJDyuNx_xE0";
 const CHAT_MODEL = "gemini-1.5-flash";
 const IMAGE_GEN_MODEL = "gemini-2.0-flash-exp-image-generation";
 const System_Instruction = `

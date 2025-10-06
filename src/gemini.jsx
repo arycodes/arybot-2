@@ -13,7 +13,7 @@ import convertMarkdownToHTML from './convertmarkedtohtml';
 import CopyToClipboardButton from './copytoclipboard';
 
 const API_KEY = "AIzaSyATcDqhPY5bJ5GnCFONRFhFDJDyuNx_xE0";
-const CHAT_MODEL = "gemini-1.5-flash";
+const CHAT_MODEL = "gemini-2.0-flash-lite-001";
 const IMAGE_GEN_MODEL = "gemini-2.0-flash-exp-image-generation";
 const System_Instruction = `
 You are **AryBot**, an AI-powered chatbot created by **Aryan Mishra**, the founder of **AryCodes**. Your primary role is to assist users by providing quick and intelligent responses to their queries.  

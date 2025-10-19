@@ -278,14 +278,17 @@ span .dark-mode .error {
   background-color: #fff;
   border-radius: 8px;
   padding: 4px 8px;
-  display: flex;
+  /* display: flex; */
 
   overflow-x: auto;
   color: black;
   overflow: auto;
+}
 
-
-
+.txt code {
+  width: fit-content;
+  padding: 2px 8px;
+  border-radius: 5px;
 }
 
 pre {
@@ -333,8 +336,8 @@ pre::-webkit-scrollbar {
 
 .dark-mode {
   /* background-color: #1f1f1f; */
-  background-color: #111;
-  color: #f4f4f4;
+  background-color: #0D0D0D;
+  color: #f5f5f5;
 }
 
 /* .dark-mode .chat-container {
@@ -342,8 +345,7 @@ pre::-webkit-scrollbar {
 } */
 
 .dark-mode .user-message {
-  background-color: rgba(34, 34, 34, 0.3);
-
+  background-color: #141414;
 }
 
 .dark-mode .bot-message {
@@ -354,14 +356,14 @@ pre::-webkit-scrollbar {
 
 
 .dark-mode .msgfrm {
-  background-color: #191919;
+  background-color: #141414;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .dark-mode .msgfrm #queryinput {
   /* border: 1px solid rgba(68, 68, 68, 1); */
-  background-color: #191919;
-  color: #f4f4f4;
+  background-color: #141414;
+  color: #f5f5f5;
 }
 
 .dark-mode .txt h1,

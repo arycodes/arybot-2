@@ -51,12 +51,12 @@
 }
 
 .hamb svg path {
-    fill: #111;
+    fill: #0D0D0D;
 
 }
 
 .dark-mode .hamb svg path {
-    fill: #f4f4f4;
+    fill: #f5f5f5;
 
 }
 
@@ -72,8 +72,8 @@
 
 
 .dark-mode #header {
-    background-color: #111;
-    color: #f4f4f4;
+    background-color: #0D0D0D;
+    color: #f5f5f5;
 }
 
 .dark-mode #header .installbutton {

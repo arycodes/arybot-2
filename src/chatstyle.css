@@ -57,7 +57,7 @@ body::-webkit-scrollbar {
 .bot-message {
   margin: 5px;
   padding: 12px;
-  border-radius: 12px;
+  border-radius: 20px;
   width: 95%;
   max-width: fit-content;
   font-size: 16px;
@@ -75,6 +75,7 @@ body::-webkit-scrollbar {
   align-self: flex-end;
   background-color: #f9f9f9;
   margin: 10px 0;
+  padding: 18px 15px ;
 }
 
 .user-message pre {
@@ -291,6 +292,20 @@ span .dark-mode .error {
   padding: 2px 8px;
   border-radius: 5px;
 }
+
+.txt .katex-display {
+  /* display: flex; */
+  overflow-x: auto;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.txt .katex-display .katex {
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+}
+
 
 pre {
   border: 1px solid rgba(128, 128, 128, 0.5);

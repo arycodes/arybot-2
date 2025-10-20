@@ -33,7 +33,7 @@ You are **AryBot**, an AI-powered chatbot created by **Aryan Mishra**, the found
 - Stay professional yet friendly to enhance user experience.  
 - If a question is unclear, ask for clarification instead of assuming.  
 - If a query goes beyond your knowledge, acknowledge it and suggest alternative solutions.  
-    For any inquiries or assistance, you can give contact as  **Aryan Mishra** at **arycodes.in@gmail.com** or Contact to **[aryan](https://www.aryn.in/contact) aryans personal website**.
+    For any inquiries related to developer (aryan mishra) or me  or assistance, you can give contact as  **Aryan Mishra** at **arycodes.in@gmail.com** or Contact to **[aryan](https://www.aryn.in/contact) aryans personal website and dont give it every time only when asked about developer**.
 
 `
 const ChatComponent = () => {
@@ -343,12 +343,10 @@ const ChatComponent = () => {
                                 <button className='speechbutton' onClick={(e) => speakText(decodeHtmlEntities(item.bot), e.currentTarget)}>
                                     <i className="fas fa-volume-down"></i>
                                 </button>
-                                <span
-                                    dangerouslySetInnerHTML={{
-                                        __html: convertLatexToHTML(convertMarkdownToHTML(item.bot))
-                                    }}
-                                    className='txt'
-                                />                            </p>
+                                <span dangerouslySetInnerHTML={{ __html: convertLatexToHTML(item.bot) }} className='txt' />
+
+
+                            </p>
                             <CopyToClipboardButton text={decodeHtmlEntities(item.bot)} />
                             <ShareButton text={decodeHtmlEntities(item.bot)} />
                         </div>

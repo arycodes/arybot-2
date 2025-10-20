@@ -162,6 +162,7 @@ const ChatComponent = () => {
         const messageId = Date.now();
         const userMessage = userInput.trim();
         setUserInput('');
+        
 
         // Add user message to chat history
         setChatHistory(prev => [...prev, {

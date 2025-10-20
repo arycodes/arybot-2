@@ -3,6 +3,8 @@ import "./chatstyle.css"
 import Spinner from "./spinner.svg"
 import SendIcon from "./send.svg"
 import ShareButton from './ShareButton';
+import 'katex/dist/katex.min.css';
+
 import {
     GoogleGenerativeAI,
     HarmCategory,
@@ -10,6 +12,7 @@ import {
 } from "@google/generative-ai";
 
 import convertMarkdownToHTML from './convertmarkedtohtml';
+import convertLatexToHTML from './convertlatextohtml';
 import CopyToClipboardButton from './copytoclipboard';
 
 const API_KEY = "AIzaSyB1wI9HlcVVlzwBxhWiAm7hCCrrC4CruQQ";
@@ -49,7 +52,7 @@ const ChatComponent = () => {
     const initChat = async () => {
         const genAI = new GoogleGenerativeAI(API_KEY);
         const model = genAI.getGenerativeModel({
-            model: CHAT_MODEL ,
+            model: CHAT_MODEL,
             systemInstruction: System_Instruction
         });
 
@@ -162,7 +165,7 @@ const ChatComponent = () => {
         const messageId = Date.now();
         const userMessage = userInput.trim();
         setUserInput('');
-        
+
 
         // Add user message to chat history
         setChatHistory(prev => [...prev, {
@@ -340,8 +343,12 @@ const ChatComponent = () => {
                                 <button className='speechbutton' onClick={(e) => speakText(decodeHtmlEntities(item.bot), e.currentTarget)}>
                                     <i className="fas fa-volume-down"></i>
                                 </button>
-                                <span dangerouslySetInnerHTML={{ __html: item.bot }} className='txt' />
-                            </p>
+                                <span
+                                    dangerouslySetInnerHTML={{
+                                        __html: convertLatexToHTML(convertMarkdownToHTML(item.bot))
+                                    }}
+                                    className='txt'
+                                />                            </p>
                             <CopyToClipboardButton text={decodeHtmlEntities(item.bot)} />
                             <ShareButton text={decodeHtmlEntities(item.bot)} />
                         </div>

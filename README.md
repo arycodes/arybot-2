@@ -49,6 +49,6 @@ Instagram: [@Instagram](https://instagram.com/arycodes)
 
 [Project Link](https://github.com/arycodes/arybot-2)
 
-[App Link](https://myarybot.web.app)
+[App Link](https://bot.arycodes.in)
 
 Experience the next level of conversational AI interaction with AryBot-2, built with React for a more immersive user experience! Don't forget to replace the default API key with your own to unlock the full potential of the Generative API.

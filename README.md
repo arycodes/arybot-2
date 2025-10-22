@@ -44,7 +44,7 @@ Distributed under the MIT License.
 ## Contact
 
 Aryan  
-Email: arycodes501@gmail.com  
+Email: arycodes.in@gmail.com  
 Instagram: [@Instagram](https://instagram.com/arycodes)
 
 [Project Link](https://github.com/arycodes/arybot-2)

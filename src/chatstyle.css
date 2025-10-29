@@ -75,7 +75,7 @@ body::-webkit-scrollbar {
   align-self: flex-end;
   background-color: #f9f9f9;
   margin: 10px 0;
-  padding: 18px 15px ;
+  padding: 18px 15px;
 }
 
 .user-message pre {
@@ -277,7 +277,7 @@ span .dark-mode .error {
 .txt pre {
   font-family: Consolas, Monaco, 'Andale Mono', monospace;
   font-size: 13px;
-  background-color: #fff;
+  background-color: #f9f9f9;
   border-radius: 8px;
   padding: 4px 8px;
   /* display: flex; */
@@ -307,10 +307,6 @@ span .dark-mode .error {
 }
 
 
-pre {
-  border: 1px solid rgba(128, 128, 128, 0.5);
-
-}
 
 
 code::-webkit-scrollbar {
@@ -398,8 +394,7 @@ pre::-webkit-scrollbar {
 .dark-mode .txt blockquote,
 .dark-mode .txt img,
 .dark-mode .txt table *,
-.dark-mode .txt hr,
-.dark-mode .txt span {
+.dark-mode .txt hr {
   color: #eee;
 }
 

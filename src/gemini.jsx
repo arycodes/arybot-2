@@ -3,7 +3,19 @@ import "./chatstyle.css"
 import Spinner from "./spinner.svg"
 import SendIcon from "./send.svg"
 import ShareButton from './ShareButton';
-import 'katex/dist/katex.min.css';
+// import 'katex/dist/katex.min.css';
+
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import rehypeHighlight from "rehype-highlight";
+
+import "katex/dist/katex.min.css";
+import "highlight.js/styles/atom-one-dark.css";
+// import "./markdown.css"; // you’ll create this next
+
+
 
 import {
     GoogleGenerativeAI,
@@ -11,8 +23,8 @@ import {
     HarmBlockThreshold,
 } from "@google/generative-ai";
 
-import convertMarkdownToHTML from './convertmarkedtohtml';
-import convertLatexToHTML from './convertlatextohtml';
+// import convertMarkdownToHTML from './convertmarkedtohtml';
+// import convertLatexToHTML from './convertlatextohtml';
 import CopyToClipboardButton from './copytoclipboard';
 
 const API_KEY = "AIzaSyB1wI9HlcVVlzwBxhWiAm7hCCrrC4CruQQ";
@@ -187,7 +199,7 @@ const ChatComponent = () => {
                         msg.id === messageId
                             ? {
                                 ...msg,
-                                bot: text ? convertMarkdownToHTML(text) : "Image generated successfully.",
+                                bot: text ? (text) : "Image generated successfully.",
                                 generatedImage: imageData
                             }
                             : msg
@@ -220,7 +232,7 @@ const ChatComponent = () => {
                     setChatHistory(prev =>
                         prev.map(msg =>
                             msg.id === messageId
-                                ? { ...msg, bot: convertMarkdownToHTML(response) }
+                                ? { ...msg, bot: (response) }
                                 : msg
                         )
                     );
@@ -339,14 +351,20 @@ const ChatComponent = () => {
                                     <img src={item.generatedImage} alt="Generated" className="generated-image" />
                                 </div>
                             )}
-                            <p>
-                                <button className='speechbutton' onClick={(e) => speakText(decodeHtmlEntities(item.bot), e.currentTarget)}>
-                                    <i className="fas fa-volume-down"></i>
-                                </button>
-                                <span dangerouslySetInnerHTML={{ __html: convertLatexToHTML(item.bot) }} className='txt' />
+
+                            <button className='speechbutton' onClick={(e) => speakText(decodeHtmlEntities(item.bot), e.currentTarget)}>
+                                <i className="fas fa-volume-down"></i>
+                            </button>
+                            <div className="markdown-body">
+                                <ReactMarkdown
+                                    remarkPlugins={[remarkGfm, remarkMath]}
+                                    rehypePlugins={[rehypeKatex, rehypeHighlight]}
+                                >
+                                    {item.bot || ""}
+                                </ReactMarkdown>
+                            </div>
 
 
-                            </p>
                             <CopyToClipboardButton text={decodeHtmlEntities(item.bot)} />
                             <ShareButton text={decodeHtmlEntities(item.bot)} />
                         </div>

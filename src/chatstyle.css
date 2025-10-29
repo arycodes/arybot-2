@@ -318,7 +318,6 @@ pre::-webkit-scrollbar {
 }
 
 .txt pre {
-  white-space: pre-wrap;
   text-wrap: nowrap;
   margin-top: 0;
   margin-bottom: 16px;
